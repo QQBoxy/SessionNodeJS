@@ -39,6 +39,15 @@ var session = {
 	}
 };
 
+//目錄修正
+app.all('*', function(req, res, next) {
+	if(req.url.match(/\/[^.\/]+$/)) { //由『/app』修正為『/app/』
+		res.redirect(req.url + '/');
+	} else {
+		next();
+	}
+});
+
 //延長時效
 app.all('*', session.renew);
 
